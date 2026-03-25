@@ -1,0 +1,139 @@
+# eVisit UI — AI Coding Rules
+# Last synced with CLAUDE.md: 2026-03-25
+# If CLAUDE.md has changed, regenerate from docs/ai/
+
+## Technology Constraints (DO NOT use newer versions)
+
+- React 17 (NOT 18 — no createRoot, useId, automatic batching)
+- MUI v5 (NOT v6)
+- styled-components v5 (NOT v6)
+- MSW v1 (NOT v2 — handler format: `rest.get(url, (req, res, ctx) => ...)`)
+- React Router 6
+- TypeScript 5.9+ (strict mode)
+- Node.js >= 22
+
+## Restricted Imports (ENFORCED BY ESLINT)
+
+| DO NOT import from | INSTEAD use |
+|---|---|
+| `@testing-library/react` (render) | `ev-test/test-utils` |
+| `react-redux` (useDispatch, useSelector) | `ev-store/redux` (useAppDispatch, useAppSelector) |
+| `react-i18next` (useTranslation, Trans) | `ev-i18n` |
+| `react-router-dom` (useNavigate) | `ev-hooks/navigate` (useAppNavigate) |
+| `styled-components` | `styled-components/macro` |
+| `@mui/material` (barrel import) | Individual imports (`@mui/material/Grid`) |
+| `@mui/material/Typography` | `ev-components/Text` |
+| `btoa` / `atob` | `ev-utils/base64` |
+
+## Component Preferences
+
+ALWAYS use ev-components wrappers instead of raw MUI or HTML:
+
+- Button → `ev-components/Button`
+- Input/TextField → `ev-components/Input`
+- Dialog/Modal → `ev-components/Dialog`
+- Select → `ev-components/Dropdown`
+- Typography → `ev-components/Text`
+- Tabs → `ev-components/Tabs`
+- Snackbar → `ev-components/Snackbar` or `useToast()` from `ev-hooks/toast`
+
+See `docs/ai/component-catalog.md` for the full catalog of 47+ reusable components.
+See `docs/ai/decision-trees/component-selection.md` for "use existing vs create new" guidance.
+
+## Design Tokens (MANDATORY)
+
+NEVER use raw hex/rgb colors. ALWAYS use EVColors:
+
+```tsx
+import { EVColors, Elevations } from 'ev-theme/styles';
+
+// Colors: EVColors.text.default, EVColors.surface.background, EVColors.border.default, etc.
+// Shadows: Elevations.elevation0 through elevation8
+// Typography: Text.Body, Text.Description, Text.Headline3, etc.
+// Breakpoints: useLayout() hook from ev-hooks/layout (NOT CSS media queries)
+```
+
+See `docs/ai/design-tokens.md` for the complete token reference.
+
+## Code Style
+
+- Arrow function components (NEVER `function` keyword or `React.FC`)
+- `const` by default (prefer-const)
+- `===` always (no `==`)
+- No `console.log` (only `console.warn`, `console.error`)
+- No `any` type (use `unknown` with type guards)
+- Max cyclomatic complexity: 15
+- All user-visible strings wrapped in `t()` from `useTranslation()`
+- `data-testid` on all interactive elements
+- Imports from `src/` baseUrl (e.g., `import api from 'ev-api/api'`)
+
+## Import Order (automated by Prettier)
+
+1. External libraries (react, lodash)
+2. @fullcalendar/*
+3. @mui/*
+4. @fortawesome/*
+5. ev-* packages (bare, e.g., `ev-store`)
+6. ev-* deep imports (e.g., `ev-store/redux`)
+7. app-* imports
+8. Relative imports (./, ../)
+
+## JSX Conventions
+
+- Sort props alphabetically, shorthand last: `<Button disabled id="x" label="Y" open />`
+- No curly braces for string props: `<Button id="x" />` not `<Button id={"x"} />`
+- Boolean shorthand: `<Dialog open />` not `<Dialog open={true} />`
+
+## Responsive Design
+
+Use `useLayout()` from `ev-hooks/layout` for all responsive behavior:
+
+```tsx
+const { isMobile, isTablet, isDesktop } = useLayout();
+```
+
+Breakpoints: mobile (< 744px), tablet (744-1024px), desktop (> 1024px)
+Pass layout flags as transient props: `$isMobile` (with $ prefix)
+
+## Testing
+
+- Use `test()` not `it()`
+- Use `render` from `ev-test/test-utils` (wraps with providers)
+- Use MSW v1 handlers from `ev-test/request-handlers/`
+- Use fishery factories from `ev-test/test-mocks/api-response/`
+- Include `validateAccessibility(container)` for a11y testing
+- Test at both `mobile` and `desktop` layouts for responsive components
+
+## i18n
+
+- ALL user-visible strings must be wrapped in `t()` from `useTranslation()`
+- Use `nt()` for strings in non-component contexts (tests, stories)
+- Import from `ev-i18n` (NOT `react-i18next`)
+- Flat key format (no nesting)
+
+## Accessibility (WCAG 2.1 AA)
+
+- Semantic HTML elements (button, a, ul/ol, table)
+- All form inputs need label/ariaLabel/labelledBy
+- `aria-live` for dynamic content updates
+- Focus management for modals, drawers, route changes
+- Visible focus indicators (never remove :focus-visible)
+- 44x44px minimum touch targets on mobile
+- Color + text/icon for all status indicators (not color alone)
+- Contrast: 4.5:1 for text, 3:1 for large text and UI components
+
+## Commit Convention
+
+```
+CU-<taskId>: <Short description>
+```
+
+Branch naming: `CU-<taskId>_<description-with-dashes>`
+
+## File Naming
+
+- PascalCase for components: `Button.tsx`, `Dialog.tsx`
+- kebab-case for utilities/hooks: `date-time.ts`, `navigate.tsx`
+- kebab-case for Redux slices: `selected-visit.ts`
+- Tests: `*.test.tsx` in `__tests__/` directories
+- Stories: `*.stories.tsx` co-located with component
