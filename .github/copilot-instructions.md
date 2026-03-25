@@ -98,3 +98,23 @@ test('has no accessibility violations', async () => {
 - Focus management for modals
 - 44x44px touch targets on mobile
 - Color + text/icon for status (not color alone)
+
+## Workflow Skills
+
+This project has workflow checklists in `.claude/skills/`. Although they are stored in the Claude Code directory, they are generic markdown checklists that any AI can follow. You may need to open the skill files in the editor for Copilot to access them.
+
+**Read the relevant skill file BEFORE starting these tasks:**
+
+| Task | Read this skill file |
+|---|---|
+| Creating a new UI component | `.claude/skills/new-component/SKILL.md` |
+| Building a new page/feature | `.claude/skills/new-feature-page/SKILL.md` |
+| Adding an API endpoint | `.claude/skills/new-api-endpoint/SKILL.md` |
+| Writing a Storybook story | `.claude/skills/storybook-story/SKILL.md` |
+| Auditing accessibility | `.claude/skills/accessibility-audit/SKILL.md` |
+| Fixing a bug | `.claude/skills/fix-bug/SKILL.md` |
+| Refactoring code | `.claude/skills/refactor/SKILL.md` |
+| Looking up existing components | `.claude/skills/component-lookup/SKILL.md` |
+| Writing styles/colors | `.claude/skills/design-tokens/SKILL.md` |
+
+These files contain step-by-step checklists with project-specific patterns. Always read the relevant skill before starting work to ensure consistency with the existing codebase.
