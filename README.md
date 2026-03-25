@@ -7,6 +7,8 @@ A comprehensive knowledge base that enables AI coding assistants (Claude Code, C
 ```
 .
 ├── CLAUDE.md                          # Primary knowledge base (source of truth)
+├── AGENTS.md                          # OpenAI Codex instructions
+├── GEMINI.md                          # Google Gemini instructions
 ├── .cursorrules                       # Condensed rules for Cursor/Composer
 ├── .github/
 │   ├── copilot-instructions.md        # GitHub Copilot instructions
@@ -62,6 +64,31 @@ CLAUDE.md → docs/ai/* → .cursorrules → .github/copilot-instructions.md
 | `.github/copilot-instructions` | —           | —               | Primary | —     |
 | `docs/ai/*`                    | Reference   | Reference       | —       | Feed  |
 | `.claude/skills/*`             | Skills      | —               | —       | —     |
+
+## AI Tool Compatibility
+
+Detailed breakdown of what each AI tool reads automatically versus what requires manual reference:
+
+| AI Tool | Auto-reads | Manual reference | Config location |
+| --- | --- | --- | --- |
+| Claude Code | `CLAUDE.md`, `.claude/skills/*` | `docs/ai/*` | `.claude/` |
+| Cursor/Composer | `.cursorrules` | `docs/ai/*` (via `@docs`) | `.cursorrules` |
+| GitHub Copilot | `.github/copilot-instructions.md` | -- | `.github/` |
+| OpenAI Codex | `AGENTS.md` | `docs/ai/*` | `AGENTS.md` |
+| Google Gemini | `GEMINI.md` | `docs/ai/*` | `GEMINI.md` |
+
+**Auto-reads** = the tool loads these files automatically at session start without any user action.
+**Manual reference** = developers can point the tool to these files for additional context (e.g., pasting a path, using Cursor's `@docs` directive, or referencing in a prompt).
+
+## Recommended MCPs
+
+Model Context Protocol (MCP) servers that enhance AI-assisted development workflows for this project:
+
+- **Figma Dev MCP** -- Design-to-code workflows. Extracts design context, screenshots, and reference code from Figma nodes. Enables AI tools to read Figma designs and generate matching implementations.
+- **Figma Console MCP** -- Design system auditing and variable management. Provides deep access to Figma's Plugin API for creating, inspecting, and validating design tokens, components, and visual elements directly from the AI tool.
+- **Storybook MCP** -- Component intelligence and documentation. Gives AI tools awareness of existing Storybook stories, component APIs, and visual states. **Note:** The official Storybook MCP requires Storybook 10.3+. For projects using Storybook 8 (like eVisit UI), use the community alternative `storybook-mcp` instead.
+
+See [`docs/ai/recommended-mcps.md`](docs/ai/recommended-mcps.md) for full setup instructions, configuration examples, and integration details.
 
 ## Key Principles
 
