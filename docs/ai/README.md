@@ -38,18 +38,25 @@
 
 ### Complete References
 
-| File                                                                       | Description                                       | Status    |
-| -------------------------------------------------------------------------- | ------------------------------------------------- | --------- |
-| [hook-catalog.md](./hook-catalog.md)                                       | All 82 custom hooks with signatures and usage     | Available |
-| [api-patterns.md](./api-patterns.md)                                       | RTK Query patterns, endpoint structure, Tags      | Available |
-| [form-patterns.md](./form-patterns.md)                                     | React Hook Form + Yup + Input API                 | Available |
-| [testing-patterns.md](./testing-patterns.md)                               | MSW v1, fishery, render utils, a11y tests         | Available |
-| [i18n-guide.md](./i18n-guide.md)                                           | Translation workflow, nt(), Lokalise              | Available |
-| [state-management.md](./state-management.md)                               | Redux slices, RTK Query cache, Context providers  | Available |
-| [storybook-guide.md](./storybook-guide.md)                                 | Story organization, dual-file pattern, Figma URLs | Available |
-| [routing-architecture.md](./routing-architecture.md)                       | Sub-app structure, lazy loading, paths            | Available |
-| [decision-trees/styling-approach.md](./decision-trees/styling-approach.md) | styled-components vs sx vs className              | Available |
-| [decision-trees/state-location.md](./decision-trees/state-location.md)     | Redux vs Context vs local vs RTK Query            | Available |
+| File                                                                       | Description                                           |
+| -------------------------------------------------------------------------- | ----------------------------------------------------- |
+| [coding-patterns.md](./coding-patterns.md)                                 | Import restrictions, component rules, naming, styling |
+| [hook-catalog.md](./hook-catalog.md)                                       | All 65+ custom hooks with signatures and usage        |
+| [api-patterns.md](./api-patterns.md)                                       | RTK Query patterns, endpoint structure, Tags          |
+| [form-patterns.md](./form-patterns.md)                                     | React Hook Form + Yup + Input API                     |
+| [testing-patterns.md](./testing-patterns.md)                               | MSW v1, fishery, render utils, a11y tests             |
+| [i18n-guide.md](./i18n-guide.md)                                           | Translation workflow, nt(), Lokalise                  |
+| [state-management.md](./state-management.md)                               | Redux slices, RTK Query cache, Context providers      |
+| [storybook-guide.md](./storybook-guide.md)                                 | Story organization, dual-file pattern, Figma URLs     |
+| [routing-architecture.md](./routing-architecture.md)                       | Sub-app structure, lazy loading, paths                |
+| [accessibility-guide.md](./accessibility-guide.md)                         | WCAG 2.1 AA checklist, ARIA, keyboard, testing        |
+| [responsive-guide.md](./responsive-guide.md)                               | Breakpoints, useLayout(), responsive patterns         |
+| [product-context.md](./product-context.md)                                 | Domain terminology, user flows, realtime features     |
+| [project-structure.md](./project-structure.md)                             | File tree, folder naming conventions                  |
+| [versioning-commits-refactoring.md](./versioning-commits-refactoring.md)   | Release branches, commit format, refactoring rules    |
+| [recommended-mcps.md](./recommended-mcps.md)                               | Figma MCP, Storybook MCP setup and workflows          |
+| [decision-trees/styling-approach.md](./decision-trees/styling-approach.md) | styled-components vs sx vs className                  |
+| [decision-trees/state-location.md](./decision-trees/state-location.md)     | Redux vs Context vs local vs RTK Query                |
 
 ---
 
@@ -66,7 +73,10 @@
 
 ## For AI Tool Configuration
 
-- **Claude Code**: Project rules in `CLAUDE.md` (root), skills in `.claude/skills/`
-- **Cursor/Composer**: Rules in `.cursorrules` (root)
-- **GitHub Copilot**: Instructions in `.github/copilot-instructions.md`
-- **All tools**: Reference `docs/ai/` for detailed documentation
+| AI Tool | Auto-reads | Points to |
+|---|---|---|
+| Claude Code | `CLAUDE.md`, `.claude/skills/*` | `docs/ai/*` |
+| Cursor/Composer | `.cursorrules` | `CLAUDE.md`, `docs/ai/*` |
+| GitHub Copilot | `.github/copilot-instructions.md` | `CLAUDE.md`, `docs/ai/*` |
+| OpenAI Codex | `AGENTS.md` | `CLAUDE.md`, `docs/ai/*` |
+| Google Gemini | `GEMINI.md` | `CLAUDE.md`, `docs/ai/*` |
